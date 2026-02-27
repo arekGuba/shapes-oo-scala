@@ -19,7 +19,7 @@ object size extends StrictLogging:
         logger.debug(s"Location($x, $y, ...) has size $result")
         result
       case Group(shapes*) => 
-        val sizes: Seq[Int] = shapes.map(apply)
+        val sizes: Seq[Int] = shapes.map(s => apply(s))
         val result = sizes.sum
         logger.debug(s"Group with ${shapes.length} shapes has total size $result")
         result

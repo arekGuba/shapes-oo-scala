@@ -20,7 +20,7 @@ object height extends StrictLogging:
         logger.debug(s"Location($x, $y, ...) has height $result")
         result
       case Group(shapes*) => 
-        val childHeights: Seq[Int] = shapes.map(apply)
+        val childHeights: Seq[Int] = shapes.map(s => apply(s))
         val result = if childHeights.isEmpty then 1 else 1 + childHeights.max
         logger.debug(s"Group with ${shapes.length} shapes has height $result")
         result

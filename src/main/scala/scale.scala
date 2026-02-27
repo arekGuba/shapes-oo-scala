@@ -22,7 +22,7 @@ object scale extends StrictLogging:
         logger.debug(s"Location($x, $y, ...) scaled by $factor -> $result")
         result
       case Group(shapes*) => 
-        val scaled: Seq[Shape] = shapes.map(apply(factor))
+        val scaled: Seq[Shape] = shapes.map(s => apply(factor)(s))
         val result = Group(scaled*)
         logger.debug(s"Group with ${shapes.length} shapes scaled by $factor")
         result

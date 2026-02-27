@@ -30,11 +30,16 @@ object boundingBox extends StrictLogging:
         logger.debug(s"Empty group -> $result")
         result
       case Group(shapes*) => 
-        val boxes = shapes.map(boundingBox)
+        // compute bounding boxes for children and fold
+        val boxes: Seq[Location] = shapes.map(s => boundingBox(s))
         val xMin = boxes.map(_.x).min
         val yMin = boxes.map(_.y).min
-        val xMax = boxes.map(_.x + _.width).max
-        val yMax = boxes.map(_.y + _.height).max
+        val xMax = boxes.map {
+          case Location(x, _, Rectangle(w, _)) => x + w
+        }.max
+        val yMax = boxes.map {
+          case Location(_, y, Rectangle(_, h)) => y + h
+        }.max
         val result = Location(xMin, yMin, Rectangle(xMax - xMin, yMax - yMin))
         logger.debug(s"Group with ${shapes.length} shapes -> $result")
         result
