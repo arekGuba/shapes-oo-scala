@@ -10,7 +10,7 @@ object height extends LazyLogging:
     val result: Int = s match
     case Rectangle(_, _) => 1
     case Ellipse(_, _) => 1
-    case Location(_, _, shape) => 1 + apply(shape)
+    case Location(_, _, shape) => apply(shape)
     case Group(shapes*) => 1 + (if shapes.isEmpty then 0 else shapes.map(apply).max)
     
     logger.debug(s"Height result: $result")

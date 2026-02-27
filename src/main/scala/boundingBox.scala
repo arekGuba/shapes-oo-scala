@@ -11,7 +11,7 @@ object boundingBox extends LazyLogging:
     val result: Location = s match
     case Rectangle(w, h) => Location(0, 0, Rectangle(w, h))
 
-    case Ellipse(r, radiusY) => Location(0, 0, Rectangle(2 * r, 2 * radiusY))
+    case Ellipse(r, radiusY) => Location(-r, -radiusY, Rectangle(2 * r, 2 * radiusY))
 
     case Location(x, y, shape) => 
       val Location(u, v, Rectangle(w, h)) = boundingBox(shape) : @unchecked
