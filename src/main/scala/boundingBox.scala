@@ -19,10 +19,10 @@ object boundingBox extends LazyLogging:
 
     case Group(shapes*) => 
       val boxes = shapes.map(apply)
-      val xMin = boxes.map(loc => loc.x).min
-      val yMin = boxes.map(loc => loc.y).min
-      val xMax = boxes.map(loc => loc.x + loc.width).max
-      val yMax = boxes.map(loc => loc.y + loc.height).max
+      val xMin = boxes.map(_.x).min
+      val yMin = boxes.map(_.y).min
+      val xMax = boxes.map { case Location(x, _, Rectangle(w, _)) => x + w }.max
+      val yMax = boxes.map { case Location(_, y, Rectangle(_, h)) => y + h }.max
       Location(xMin, yMin, Rectangle(xMax - xMin, yMax - yMin))
     
     logger.debug(s"Bounding box result: $result")
