@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <timestamp key="by.date" datePattern="yyyy-MM-dd HH:mm:ss"/>
+  
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- Configurable root logger level: default is INFO, can be changed to DEBUG -->
+  <root level="INFO">
+    <appender-ref ref="STDOUT"/>
+  </root>
+
+  <!-- Shape-related debug logging -->
+  <logger name="edu.luc.cs.laufer.cs371.shapes" level="DEBUG"/>
+</configuration>
