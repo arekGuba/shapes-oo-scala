@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- Set logging level to INFO by default -->
+  <!-- Change to DEBUG to see debug messages -->
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+  </root>
+
+  <!-- Enable DEBUG logging for shapes package -->
+  <logger name="edu.luc.cs.laufer.cs371.shapes" level="DEBUG" />
+</configuration>

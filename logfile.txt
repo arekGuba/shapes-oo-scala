@@ -1,0 +1,21 @@
+Change log for shapes-oo-scala project
+
+- Uncommented test fixtures and boundingBox tests in TestFixtures.scala and TestBoundingBox.scala.
+- Implemented new behaviours:
+  * boundingBox (with accurate ellipse handling and empty group case, logging)
+  * size (counts leaf shapes, logging)
+  * height (computes shape tree height, logging)
+  * scale (recursively scales dimensions, logging)
+- Added logging support:
+  * Added scala-logging and logback dependencies in build.sbt.
+  * Configured logback.xml with INFO root level and DEBUG for shapes package.
+  * Behaviours extend StrictLogging and emit debug/info messages.
+- Added constructor validation in Shape enum cases using require calls.
+- Added validation tests in TestValidation.scala to exercise constructor checks.
+- Created TestSize, TestHeight, and TestScale classes with appropriate tests.
+- Added README.md summarizing features, usage, and extra credit notes.
+- Adjusted boundingBox rules for ellipses and empty groups.
+- Updated tests and fixtures accordingly.
+- Converted all code to Scala 3 significant-indentation syntax and added compiler options (scalaVersion and scalacOptions) in build.sbt.
+
+All requirements from the assignment were satisfied.
