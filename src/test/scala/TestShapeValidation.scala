@@ -9,8 +9,11 @@ class TestShapeValidation extends AnyFunSuite:
   test("Rectangle with positive dimensions should be valid"):
     Shape.requireValidRectangle(10, 20)
     val rect = Rectangle(10, 20)
-    assert(rect.width == 10)
-    assert(rect.height == 20)
+    rect match
+      case Rectangle(w, h) =>
+        assert(w == 10)
+        assert(h == 20)
+      case _ => fail("Expected Rectangle")
 
   test("Rectangle with zero width should throw"):
     assertThrows[IllegalArgumentException]:
@@ -31,8 +34,11 @@ class TestShapeValidation extends AnyFunSuite:
   test("Ellipse with positive radii should be valid"):
     Shape.requireValidEllipse(15, 25)
     val ellipse = Ellipse(15, 25)
-    assert(ellipse.r == 15)
-    assert(ellipse.radiusY == 25)
+    ellipse match
+      case Ellipse(r, radiusY) =>
+        assert(r == 15)
+        assert(radiusY == 25)
+      case _ => fail("Expected Ellipse")
 
   test("Ellipse with zero radius should throw"):
     assertThrows[IllegalArgumentException]:
@@ -45,7 +51,10 @@ class TestShapeValidation extends AnyFunSuite:
   test("Group with shapes should be valid"):
     Shape.requireValidGroup(Seq(Rectangle(10, 20), Ellipse(5, 10)))
     val group = Group(Rectangle(10, 20), Ellipse(5, 10))
-    assert(group.shapes.size == 2)
+    group match
+      case Group(shapes*) =>
+        assert(shapes.size == 2)
+      case _ => fail("Expected Group")
 
   test("Group with no shapes should throw"):
     assertThrows[IllegalArgumentException]:
@@ -53,7 +62,10 @@ class TestShapeValidation extends AnyFunSuite:
 
   test("Location with valid shape should be valid"):
     val location = Location(10, 20, Rectangle(30, 40))
-    assert(location.x == 10)
-    assert(location.y == 20)
+    location match
+      case Location(x, y, _) =>
+        assert(x == 10)
+        assert(y == 20)
+      case _ => fail("Expected Location")
 
 end TestShapeValidation
