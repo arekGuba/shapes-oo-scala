@@ -11,10 +11,8 @@ ThisBuild / scalacOptions ++= Seq(
   "-unchecked",
   "-Xfatal-warnings",
   "-Wconf:cat=deprecation:warning",
-  "-Wdead-code",
-  "-language:strict",
   "-Yexplicit-nulls"
-)
+).distinct
 
 libraryDependencies ++= Seq(
   "org.creativescala" %% "doodle"     % "0.32.0",
