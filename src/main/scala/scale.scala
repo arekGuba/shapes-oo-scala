@@ -11,7 +11,7 @@ object scale extends LazyLogging:
     case Rectangle(w, h) => Rectangle((w * factor).toInt, (h * factor).toInt)
     case Ellipse(r, radiusY) => Ellipse((r * factor).toInt, (radiusY * factor).toInt)
     case Location(x, y, shape) => Location((x * factor).toInt, (y * factor).toInt, apply(factor, shape))
-    case Group(shapes*) => Group(shapes.map(apply(factor, _)): _*)
+    case Group(shapes*) => Group(shapes.map(s => apply(factor, s))*)
     
     logger.debug(s"Scale result: $result")
     result
