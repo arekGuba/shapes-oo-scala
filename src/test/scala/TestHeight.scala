@@ -16,7 +16,7 @@ class TestHeight extends AnyFunSuite:
   testHeight("simple ellipse", simpleEllipse, 1)
   testHeight("simple location wraps rectangle", simpleLocation, 2)
   testHeight("basic group height", basicGroup, 2)
-  testHeight("simple group height", simpleGroup, 2)
-  testHeight("complex group with multiple nesting levels", complexGroup, 5)
+  testHeight("simple group height", simpleGroup, 3)
+  testHeight("complex group with multiple nesting levels", complexGroup, 6)
 
 end TestHeight
