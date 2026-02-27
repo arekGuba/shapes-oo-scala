@@ -1,16 +1,22 @@
 package edu.luc.cs.laufer.cs371.shapes
 
+/** A geometric shape hierarchy */
 enum Shape derives CanEqual:
 
-  case Rectangle(width: Int, height: Int) extends Shape:
-    require(width >= 0 && height >= 0, s"Rectangle dimensions must be non-negative, got ($width,$height)")
+  /** Rectangle with non-negative width and height */
+  case Rectangle(width: Int, height: Int) :
+    require(width >= 0 && height >= 0,
+      s"Rectangle dimensions must be non-negative, got ($width, $height)")
 
-  case Location(x: Int, y: Int, shape: Shape) extends Shape
-    // location coordinates may be negative; no additional validation
+  /** Location offset for a shape (x and y coordinates may be negative) */
+  case Location(x: Int, y: Int, shape: Shape)
 
-  case Ellipse(r: Int, radiusY: Int) extends Shape:
-    require(r >= 0 && radiusY >= 0, s"Ellipse radii must be non-negative, got ($r,$radiusY)")
+  /** Ellipse with non-negative radii */
+  case Ellipse(radiusX: Int, radiusY: Int) :
+    require(radiusX >= 0 && radiusY >= 0,
+      s"Ellipse radii must be non-negative, got ($radiusX, $radiusY)")
 
-  case Group(shapes: Shape*) extends Shape:
+  /** Group of shapes; no shape may be null */
+  case Group(shapes: Shape*) :
     require(shapes.forall(_ != null), "Group shapes cannot contain null")
 
