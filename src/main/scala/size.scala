@@ -7,7 +7,7 @@ import com.typesafe.scalalogging.LazyLogging
 object size extends LazyLogging:
   def apply(s: Shape): Int = 
     logger.debug(s"Computing size for shape: $s")
-    val result = s match
+    val result: Int = s match
     case Rectangle(_, _) => 1
     case Ellipse(_, _) => 1
     case Location(_, _, shape) => apply(shape)

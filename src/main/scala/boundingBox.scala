@@ -8,7 +8,7 @@ import com.typesafe.scalalogging.LazyLogging
 object boundingBox extends LazyLogging:
   def apply(s: Shape): Location = 
     logger.debug(s"Computing bounding box for shape: $s")
-    val result = s match
+    val result: Location = s match
     case Rectangle(w, h) => Location(0, 0, Rectangle(w, h))
 
     case Ellipse(r, radiusY) => Location(0, 0, Rectangle(2 * r, 2 * radiusY))

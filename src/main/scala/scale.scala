@@ -7,7 +7,7 @@ import com.typesafe.scalalogging.LazyLogging
 object scale extends LazyLogging:
   def apply(factor: Double, s: Shape): Shape = 
     logger.debug(s"Scaling shape by factor $factor: $s")
-    val result = s match
+    val result: Shape = s match
     case Rectangle(w, h) => Rectangle((w * factor).toInt, (h * factor).toInt)
     case Ellipse(r, radiusY) => Ellipse((r * factor).toInt, (radiusY * factor).toInt)
     case Location(x, y, shape) => Location((x * factor).toInt, (y * factor).toInt, apply(factor, shape))
