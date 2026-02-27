@@ -2,7 +2,7 @@ name := "shapes-oo-scala"
 
 version := "0.4"
 
-scalaVersion := "3.2.2"
+scalaVersion := "3.7.3"
 
 // use Scala 3 with significant indentation and helpful warnings
 ThisBuild / scalacOptions ++= Seq(
