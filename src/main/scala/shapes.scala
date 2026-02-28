@@ -1,22 +1,19 @@
 package edu.luc.cs.laufer.cs371.shapes
 
-/** A geometric shape hierarchy */
+/** data Shape = Rectangle(w, h) | Location(x, y, Shape) */
 enum Shape derives CanEqual:
-
-  /** Rectangle with non-negative width and height */
-  case Rectangle(width: Int, height: Int) :
-    require(width >= 0 && height >= 0,
-      s"Rectangle dimensions must be non-negative, got ($width, $height)")
-
-  /** Location offset for a shape (x and y coordinates may be negative) */
+  case Rectangle(width: Int, height: Int)
   case Location(x: Int, y: Int, shape: Shape)
+  case Ellipse(r: Int, radiusY: Int)
+  case Group(shapes: Shape*)
 
-  /** Ellipse with non-negative radii */
-  case Ellipse(radiusX: Int, radiusY: Int) :
-    require(radiusX >= 0 && radiusY >= 0,
-      s"Ellipse radii must be non-negative, got ($radiusX, $radiusY)")
+object Shape:
+  def requireValidRectangle(width: Int, height: Int): Unit =
+    require(width > 0 && height > 0, "Rectangle dimensions must be positive")
 
-  /** Group of shapes; no shape may be null */
-  case Group(shapes: Shape*) :
-    require(shapes.forall(_ != null), "Group shapes cannot contain null")
+  def requireValidEllipse(r: Int, radiusY: Int): Unit =
+    require(r > 0 && radiusY > 0, "Ellipse radii must be positive")
+
+  def requireValidGroup(shapes: Seq[Shape]): Unit =
+    require(shapes.nonEmpty, "Group must contain at least one shape")
 

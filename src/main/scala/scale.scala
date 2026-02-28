@@ -1,32 +1,20 @@
 package edu.luc.cs.laufer.cs371.shapes
 
-import com.typesafe.scalalogging.StrictLogging
-
 import Shape.*
+import com.typesafe.scalalogging.LazyLogging
 
-object scale extends StrictLogging:
-  def apply(factor: Int)(s: Shape): Shape = 
+/** Recursively scales the dimensions of a shape by a given factor */
+object scale extends LazyLogging:
+  def apply(factor: Double, s: Shape): Shape = 
     logger.debug(s"Scaling shape by factor $factor: $s")
-    val result = s match
-      case Rectangle(w, h) => 
-        val r = Rectangle(w * factor, h * factor)
-        logger.debug(s"Rectangle($w, $h) scaled by $factor -> $r")
-        r
-      case Ellipse(r, radiusY) => 
-        val result = Ellipse(r * factor, radiusY * factor)
-        logger.debug(s"Ellipse($r, $radiusY) scaled by $factor -> $result")
-        result
-      case Location(x, y, shape) => 
-        val scaled = apply(factor)(shape)
-        val result = Location(x * factor, y * factor, scaled)
-        logger.debug(s"Location($x, $y, ...) scaled by $factor -> $result")
-        result
-      case Group(shapes*) => 
-        val scaled: Seq[Shape] = shapes.map(s => apply(factor)(s))
-        val result = Group(scaled*)
-        logger.debug(s"Group with ${shapes.length} shapes scaled by $factor")
-        result
-    logger.info(s"Scaling complete by factor $factor: $result")
+    val result: Shape = s match
+    case Rectangle(w, h) => Rectangle((w * factor).toInt, (h * factor).toInt)
+    case Ellipse(r, radiusY) => Ellipse((r * factor).toInt, (radiusY * factor).toInt)
+    case Location(x, y, shape) => Location((x * factor).toInt, (y * factor).toInt, apply(factor, shape))
+    case Group(shapes*) => Group(shapes.map(s => apply(factor, s))*)
+    
+    logger.debug(s"Scale result: $result")
     result
 
 end scale
+

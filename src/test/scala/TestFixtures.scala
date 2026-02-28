@@ -29,7 +29,8 @@ object TestFixtures:
             Ellipse(50, 30)
           )
       )),
-        Rectangle(100, 200)
+      Rectangle(100, 200)
     ))
 
 end TestFixtures
+

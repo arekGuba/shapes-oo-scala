@@ -7,19 +7,31 @@ import Shape.*
 
 class TestScale extends AnyFunSuite:
 
-  def testScale(description: String, s: Shape, factor: Int, expected: Shape): Unit =
+  def testScale(description: String, factor: Double, s: Shape, expected: Shape): Unit =
     test(description):
-      assert(expected == scale(factor)(s))
+      val result = scale(factor, s)
+      assert(result == expected)
 
-  testScale("scale ellipse by 2", simpleEllipse, 2, Ellipse(100, 60))
-  testScale("scale rectangle by 2", simpleRectangle, 2, Rectangle(160, 240))
-  testScale("scale location by 2", simpleLocation, 2, Location(140, 60, Rectangle(160, 240)))
-  testScale("scale basic group by 2", basicGroup, 2, Group(Ellipse(100, 60), Rectangle(40, 80)))
-  testScale("scale simple group by 2", simpleGroup, 2, 
-    Group(
-      Location(400, 200, Ellipse(100, 60)),
-      Location(800, 600, Rectangle(200, 100))
-    ))
-  testScale("scale complex group by 1", complexGroup, 1, complexGroup)
+  testScale("scale rectangle by 2", 2.0, simpleRectangle, Rectangle(160, 240))
+  testScale("scale rectangle by 0.5", 0.5, simpleRectangle, Rectangle(40, 60))
+  testScale("scale ellipse by 2", 2.0, simpleEllipse, Ellipse(100, 60))
+  testScale("scale location by 2", 2.0, simpleLocation, Location(140, 60, Rectangle(160, 240)))
+  testScale("scale location by 0.5", 0.5, simpleLocation, Location(35, 15, Rectangle(40, 60)))
+  testScale("scale group by 2", 2.0, basicGroup, Group(Ellipse(100, 60), Rectangle(40, 80)))
+  testScale("scale complex nested shape", 2.0, complexGroup, 
+    Location(100, 200,
+      Group(
+        Ellipse(40, 80),
+        Location(300, 100,
+        Group(
+          Rectangle(100, 60),
+          Rectangle(600, 120),
+          Location(200, 400,
+            Ellipse(100, 60)
+          )
+      )),
+      Rectangle(200, 400)
+    )))
 
 end TestScale
+

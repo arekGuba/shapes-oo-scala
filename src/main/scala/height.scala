@@ -1,30 +1,20 @@
 package edu.luc.cs.laufer.cs371.shapes
 
-import com.typesafe.scalalogging.StrictLogging
-
 import Shape.*
+import com.typesafe.scalalogging.LazyLogging
 
-object height extends StrictLogging:
+/** Computes the height of the shape tree (considering all kinds of shape nodes) */
+object height extends LazyLogging:
   def apply(s: Shape): Int = 
     logger.debug(s"Computing height for shape: $s")
-    val result = s match
-      case Rectangle(w, h) => 
-        logger.debug(s"Rectangle($w, $h) has height 1")
-        1
-      case Ellipse(r, radiusY) => 
-        logger.debug(s"Ellipse($r, $radiusY) has height 1")
-        1
-      case Location(x, y, shape) => 
-        val innerHeight = apply(shape)
-        val result = 1 + innerHeight
-        logger.debug(s"Location($x, $y, ...) has height $result")
-        result
-      case Group(shapes*) => 
-        val childHeights: Seq[Int] = shapes.map(s => apply(s))
-        val result = if childHeights.isEmpty then 1 else 1 + childHeights.max
-        logger.debug(s"Group with ${shapes.length} shapes has height $result")
-        result
-    logger.info(s"Height computed: $result")
+    val result: Int = s match
+    case Rectangle(_, _) => 1
+    case Ellipse(_, _) => 1
+    case Location(_, _, shape) => 1 + apply(shape)
+    case Group(shapes*) => 1 + (if shapes.isEmpty then 0 else shapes.map(apply).max)
+    
+    logger.debug(s"Height result: $result")
     result
 
 end height
+

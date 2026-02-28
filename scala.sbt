@@ -9,3 +9,4 @@ scalacOptions ++= Seq(
   "-Yexplicit-nulls",
   "-Wsafe-init"
 )
+

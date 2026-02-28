@@ -9,13 +9,15 @@ class TestHeight extends AnyFunSuite:
 
   def testHeight(description: String, s: Shape, expectedHeight: Int): Unit =
     test(description):
-      assert(expectedHeight == height(s))
+      val result = height(s)
+      assert(result == expectedHeight)
 
-  testHeight("simple ellipse", simpleEllipse, 1)
   testHeight("simple rectangle", simpleRectangle, 1)
-  testHeight("simple location", simpleLocation, 2)
-  testHeight("basic group", basicGroup, 2)
-  testHeight("simple group", simpleGroup, 3)
-  testHeight("complex group", complexGroup, 6)
+  testHeight("simple ellipse", simpleEllipse, 1)
+  testHeight("simple location wraps rectangle", simpleLocation, 2)
+  testHeight("basic group height", basicGroup, 2)
+  testHeight("simple group height", simpleGroup, 3)
+  testHeight("complex group with multiple nesting levels", complexGroup, 6)
 
 end TestHeight
+
